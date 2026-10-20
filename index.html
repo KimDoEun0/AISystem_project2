@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>서울시 버스 도착 정보 조회</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🚌 서울시 버스 도착 정보</h1>
+    
+    <div class="search-box">
+      <input type="text" id="arsIdInput" placeholder="정류소 고유번호 5자리 (예: 04247)" maxlength="5">
+      <button id="searchBtn">조회하기</button>
+    </div>
+
+    <div id="loading" class="hidden">정보를 불러오는 중입니다...</div>
+    <div id="errorMsg" class="error hidden"></div>
+
+    <div id="resultContainer" class="result-container">
+      <h2 id="stationTitle"></h2>
+      <ul id="busList" class="bus-list"></ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
