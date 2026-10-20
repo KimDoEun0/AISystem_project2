@@ -1,4 +1,4 @@
-// 공공데이터포털에서 발급받은 일반 인증키 (Encoding) 입력
+// 1. 공공데이터포털 마이페이지에서 발급받은 [일반 인증키 (Encoding)] 입력
 const SERVICE_KEY = '8df9681b1748b09a3badc6afff5e72bf6fba7f96507b697945782d3dcf7c4041'; 
 
 document.getElementById('searchBtn').addEventListener('click', fetchBusArrival);
@@ -24,9 +24,11 @@ async function fetchBusArrival() {
   stationTitle.innerText = '';
   loading.classList.remove('hidden');
 
-  // API URL 조립 및 CORS 프록시 경유
-  const targetUrl = `http://ws.bus.go.kr/api/rest/stationinfo/getStationByUidItem?serviceKey=${SERVICE_KEY}&arsId=${arsId}&resultType=json`;
-  const proxyUrl = `https://api.corspad.com/?url=${encodeURIComponent(targetUrl)}`;
+  // API URL 생성
+  const targetUrl = `http://ws.bus.go.kr/api/rest/stationinfo/getStationByUid?serviceKey=${SERVICE_KEY}&arsId=${arsId}&resultType=json`;
+  
+  // 안정적인 AllOrigins CORS 프록시 사용
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
 
   try {
     const response = await fetch(proxyUrl);
@@ -38,7 +40,7 @@ async function fetchBusArrival() {
     loading.classList.add('hidden');
 
     if (!items || items.length === 0) {
-      errorMsg.innerText = '조회된 버스도착 정보가 없습니다.';
+      errorMsg.innerText = '조회된 버스도착 정보가 없거나 정류소 번호가 올바르지 않습니다.';
       errorMsg.classList.remove('hidden');
       return;
     }
